@@ -27,7 +27,21 @@ app.Run();*/
 
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestAPI V1");
+        c.RoutePrefix = string.Empty; // Set Swagger UI at the root path
+    });
+}
 
 //convention based routing
 //url/api/pizza(controller)/{1}
